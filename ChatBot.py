@@ -1,4 +1,4 @@
-from langchain_community.vectorstores import Chroma # for the vectorization part
+from langchain_community.vectorstores import FAISS # for the vectorization part
 from langchain_community.embeddings.sentence_transformer import (
     SentenceTransformerEmbeddings,
 )
@@ -52,10 +52,8 @@ def embeddings(input):
 
 def db_output(prompt):
     embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-    db3 = Chroma(persist_directory="./FESTBOT_db", embedding_function=embedding_function)
+    db3 = FAISS.load_local("./FESTBOT_db", embedding_function)
     docs = db3.similarity_search(prompt)
- 
-
     llm = client
     chain =load_qa_chain(llm=llm,chain_type="stuff")
     response =chain.run(input_documents=docs,question=prompt)

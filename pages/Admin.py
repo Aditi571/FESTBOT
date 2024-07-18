@@ -3,7 +3,7 @@ from PyPDF2 import PdfReader
 from langchain_community.embeddings.sentence_transformer import (
     SentenceTransformerEmbeddings,
 )
-from langchain_community.vectorstores import Chroma  # for the vectorization part
+from langchain_community.vectorstores import FAISS  # for the vectorization part
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # Dummy user credentials
@@ -47,12 +47,12 @@ def main():
             splits = text_splitter.split_text(text=text)
 
             model = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-
-            db = Chroma.from_texts(splits, model, persist_directory="./FESTBOT_db")
+            db = FAISS.from_texts(splits, model)
+            db.save_local("./FESTBOT_db")
 
             query = "What is ignus"
             docs = db.similarity_search(query)
-            st.write(docs[0].page_content)
+            st.write(docs[0])
         
 
 if __name__ == '__main__':
