@@ -1,4 +1,3 @@
-from openai import OpenAI
 from langchain_community.vectorstores import Chroma # for the vectorization part
 from langchain_community.embeddings.sentence_transformer import (
     SentenceTransformerEmbeddings,
@@ -8,11 +7,10 @@ import warnings
 from urllib3.exceptions import InsecureRequestWarning
 import streamlit as st
 from dotenv import load_dotenv
-import os
 from os import getenv
 import shelve
 from langchain.chains.question_answering import load_qa_chain
-import config
+import config as config
 from langchain_openai import ChatOpenAI
 
 api_key = config.OPENAI_API_KEY

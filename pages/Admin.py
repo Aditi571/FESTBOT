@@ -43,7 +43,7 @@ def main():
                 text += page.extract_text()
             
 
-            text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+            text_splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=100)
             splits = text_splitter.split_text(text=text)
 
             model = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
