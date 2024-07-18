@@ -52,7 +52,7 @@ def embeddings(input):
 
 def db_output(prompt):
     embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-    db3 = FAISS.load_local("./FESTBOT_db", embedding_function)
+    db3 = FAISS.load_local("./FESTBOT_db", embedding_function, allow_dangerous_deserialization=True)
     docs = db3.similarity_search(prompt)
     llm = client
     chain =load_qa_chain(llm=llm,chain_type="stuff")
