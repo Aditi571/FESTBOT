@@ -48,7 +48,7 @@ def main():
 
             model = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
             db = FAISS.from_texts(splits, model)
-            db.save_local("./FESTBOT_db")
+            db.save_local("./FESTBOT_db", allow_dangerous_deserialization=True)
 
             query = "What is ignus"
             docs = db.similarity_search(query)
